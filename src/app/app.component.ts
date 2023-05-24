@@ -1,8 +1,8 @@
 /**
  * @Author: Zhenxiang Chen
  * @Date:   2021-12-04 14:41:53
- * @Last Modified by:   Zhenxiang Chen
- * @Last Modified time: 2021-12-04 17:05:00
+ * @Last Modified by:   Costardi Paolo @ Tech-Farm Srl
+ * @Last Modified time: 2023-05-24 18:26:05
  */
 import { PrintService, UsbDriver, BluetoothDriver } from "ngx-thermal-print";
 import { Component } from "@angular/core";
@@ -17,6 +17,7 @@ export class AppComponent {
   status: boolean = false;
   usbPrintDriver: UsbDriver;
   bluetoothDriver: BluetoothDriver;
+ // networkDriver: NetworkDriver;
   ip: string = "10.83.118.160";
 
   constructor(private printService: PrintService) {
@@ -54,6 +55,11 @@ export class AppComponent {
       }
     );
   }
+/*
+  connectToNetwork() {
+    this.networkDriver = new NetworkDriver(this.ip);
+    this.printService.setDriver(this.networkDriver);
+  }*/
 
   print() {
     this.printService

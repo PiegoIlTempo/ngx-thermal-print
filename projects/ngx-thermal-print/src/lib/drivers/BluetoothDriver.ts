@@ -1,8 +1,8 @@
 /**
  * @Author: Zhenxiang Chen
  * @Date:   2021-12-04 14:52:35
- * @Last Modified by:   Zhenxiang Chen
- * @Last Modified time: 2021-12-26 18:16:58
+ * @Last Modified by:   Costardi Paolo @ Tech-Farm Srl
+ * @Last Modified time: 2023-05-24 18:31:59
  */
 import { BehaviorSubject, Observable } from 'rxjs';
 import { PrintDriver } from "./PrintDriver";
@@ -16,13 +16,21 @@ export class BluetoothDriver extends PrintDriver {
 
     private device?: BluetoothDevice;
     private printCharacteristic?: BluetoothRemoteGATTCharacteristic;
+    private deviceId: string
     public isConnected: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    constructor() {
+    constructor(deviceId?: string) {
         super();
+        this.deviceId = deviceId
     }
 
     public connect() {
+      navigator.bluetooth.getDevices().then(devices => {
+        this.device = devices.find((device: BluetoothDevice) => {
+          return device.id === this.deviceId
+        })
+        console.log(this.device);
+        
         this.device?.gatt?.connect()
             .then(server => server.getPrimaryService(this.PRINT_SERVICE_UUID))
             .then(service => service.getCharacteristic(this.PRINT_CHARACTERISTIC_UUID))
@@ -34,8 +42,8 @@ export class BluetoothDriver extends PrintDriver {
             .catch(result => {
                 this.isConnected.next(false);
             });
+      })  
     }
-
 
     /**
      * Request a Bluetooth device through the browser
@@ -49,7 +57,7 @@ export class BluetoothDriver extends PrintDriver {
                     }]
                 })
                 .then((result: BluetoothDevice) => {
-                    this.device = result;
+                    this.deviceId = result.id;
                     return observer.next(result);
                 }).catch(error => {
                     return observer.error(error);

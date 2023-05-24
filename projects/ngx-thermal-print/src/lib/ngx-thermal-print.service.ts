@@ -1,5 +1,10 @@
+/**
+ * @Author: Costardi Paolo @ Tech-Farm Srl
+ * @Date:   2023-05-15 14:37:02
+ * @Last Modified by:   Costardi Paolo @ Tech-Farm Srl
+ * @Last Modified time: 2023-05-23 08:59:39
+ */
 import { StarPrintBuilder } from './builders/StarPrintBuilder';
-import { WebPrintBuilder } from './builders/WebPrintBuilder';
 import { PrintBuilder } from './builders/PrintBuilder';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -45,9 +50,6 @@ export class PrintService extends PrintBuilder {
     }
 
     switch (this.printLanguage) {
-      case 'WebPRNT':
-        this.builder = new WebPrintBuilder();
-        break;
       case 'StarPRNT':
         this.builder = new StarPrintBuilder();
         break;

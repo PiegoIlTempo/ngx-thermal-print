@@ -141,9 +141,9 @@
           },
           "configurations": {
             "production": {
-              "project": "projects/ngx-thermal-print/ng-package.prod.json"
-            ,              "tsConfig": "projects/ngx-thermal-print/tsconfig.lib.prod.json"
-}
+              "project": "projects/ngx-thermal-print/ng-package.prod.json",
+              "tsConfig": "projects/ngx-thermal-print/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
